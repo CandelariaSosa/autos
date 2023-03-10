@@ -20,9 +20,50 @@ const autos = [
 
 
 window.onload = function(){
- //1.COLOCÁ ACÁ EL CÓDIGO PARA SETEAR TODOS LOS AUTOS EN PROMOCIÓN
-   alert("Esta funcionando");     
+//  //1.COLOCÁ ACÁ EL CÓDIGO PARA SETEAR TODOS LOS AUTOS EN PROMOCIÓN
+// //2.CREA UNA FUNCIÓN ACÁ PARA FILTRAR LOS AUTOS POR MARCA
+
+function mostrarAutos() {
+  const cards = document.querySelector("#cards");
+  autos.forEach(elemento => {cards.innerHTML += 
+    `<div class="col-sm-4 mt-3">
+      <div class="card px-2 pb-2">
+        <div class=card-body">
+          <h5 class="cad-tittle">${elemento.marca}</h5>
+          <p class="card-text"> ${elemento.modelo} - Color ${elemento.color}</p>
+          <p class="h6">Precio: ${elemento.precio}</p>
+          <a href="#" class="btn btn-warning">Más info +</a>
+        </div>
+      </div>
+    </div>`});
 }
+mostrarAutos();
 
+// Ejercicio 3)
+let formulario = document.querySelector("form");
 
-//2.CREA UNA FUNCIÓN ACÁ PARA FILTRAR LOS AUTOS POR MARCA
+const filtrar = evento => {
+
+  evento.preventDefault();
+  let filtro = document.querySelector("#filtro").value;
+  let autosFiltro = autos.filter(auto => auto.marca.toLocaleLowerCase() === filtro.toLocaleLowerCase()); 
+  
+  cards.innerHTML = "";
+  autosFiltro.forEach(elemento => {
+    cards.innerHTML += 
+    `<div class="col-sm-4 mt-3">
+      <div class="card">
+        <div class=card-body">
+          <h5 class="cad-tittle">${elemento.marca}</h5>
+          <p class="card-text"> ${elemento.modelo} - Color ${elemento.color}</p>
+          <p class="h6">Precio: ${elemento.precio}</p>
+          <a href="#" class="btn btn-warning">Más info +</a>
+        </div>
+      </div>
+    </div>`});
+
+    formulario.reset();
+}
+formulario.addEventListener("submit", filtrar);
+
+}
